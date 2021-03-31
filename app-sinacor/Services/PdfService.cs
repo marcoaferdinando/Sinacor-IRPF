@@ -16,6 +16,12 @@ namespace app_sinacor.Services
             var document = new PdfDocument(reader);
             var page = document.GetPage(1);
             var text = PdfTextExtractor.GetTextFromPage(page);
+
+            text = text.ToLower()
+                .Replace("\r\n"," ")
+                .Replace("\n", " ")
+                .Replace("\r", " ");
+
             return text;
         }
     }

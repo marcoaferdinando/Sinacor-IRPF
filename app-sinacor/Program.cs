@@ -22,7 +22,8 @@ namespace app_sinacor
         {
             _minhas_notas
                 .ForEach(nota => 
-                    Services.NotaNegociacaoService.ExtractValuesFromNotaString(nota));
+                    new Services.NotaNegociacaoService(nota)
+                        .ExtractValuesFromNotaString());
         }
 
         private static void GetStringsFromFiles()
@@ -34,7 +35,7 @@ namespace app_sinacor
                        new Models.NotaNegociacaoModel()
                        {
                            File = file,
-                           TextFile =
+                           TextFromFile =
                            Services.PdfService.ExtractTextFromPdf(file)
                        }));
         }

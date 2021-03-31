@@ -9,7 +9,7 @@ namespace app_sinacor.Models
     public class NotaNegociacaoModel
     {
         public string File { get; set; }
-        public string TextFile { get; set; }
+        public string TextFromFile { get; set; }
 
         public DateTime Pregao { get; set; }
         public List<Models.NegociosRealizadosModel> NegociosRealizados { get; set; }
