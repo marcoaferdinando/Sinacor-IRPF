@@ -8,7 +8,7 @@ namespace app_sinacor
     class Program
     {
         private static readonly string _notasFolder
-            = @"C:\Users\Marquinho\Downloads\Notas de Negociação";
+            = @"D:\Google Drive\Documentos\IRPF\2021\Clear Corretora\Notas de Negociação";
 
         private static List<Models.NotaNegociacaoModel> _minhas_notas = new List<Models.NotaNegociacaoModel>();
 
