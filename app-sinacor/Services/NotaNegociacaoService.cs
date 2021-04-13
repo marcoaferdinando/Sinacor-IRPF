@@ -19,6 +19,33 @@ namespace app_sinacor.Services
         {
             Cabeçalho();
             NegociosRealizados();
+            ResumoDosNegocios();
+            ResumoFinanceiro();
+        }
+
+        private void ResumoFinanceiro()
+        {
+            var valor_venda = _minha_nota.ResumoDosNegocios.Vendas_a_Vista.ToString("N2");
+            var irrf = Regex.Match(_minha_nota.TextFromFile, $"(?<=operações, base r\\${valor_venda} ).*(?= outros)").Value;
+
+            _minha_nota.ResumoFinanceiro =
+                new Models.ResumoFinanceiroModel()
+                {
+                    IRRF = Convert.ToDecimal(irrf)
+                };
+        }
+
+        private void ResumoDosNegocios()
+        {
+            var compras_a_vista = Regex.Match(_minha_nota.TextFromFile, "(?<=compras à vista ).*(?= taxa de liquidação)").Value;
+            var vendas_a_vista = Regex.Match(_minha_nota.TextFromFile, "(?<=vendas à vista ).*(?= valor líquido)").Value;
+
+            _minha_nota.ResumoDosNegocios =
+                new Models.ResumoDosNegociosModel()
+                {
+                    Compras_a_Vista = Convert.ToDecimal(compras_a_vista),
+                    Vendas_a_Vista = Convert.ToDecimal(vendas_a_vista)
+                };
         }
 
         private void NegociosRealizados()
