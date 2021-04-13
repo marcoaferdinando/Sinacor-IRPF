@@ -76,10 +76,14 @@ namespace app_sinacor.Services
             var valores = Regex.Match(operacao, padrao_temp).Value;
             var matches = Regex.Matches(valores, "(?<= )[0-9,\\.]+");
 
-            var quantidade = Convert.ToInt32(matches[0].Value);
-            var preco = Convert.ToDecimal(matches[1].Value);
-            var valor = Convert.ToDecimal(matches[2].Value);
-
+            var matches_values = matches.Select(a => a.Value).ToList();
+            if (matches.Count > 3 && !int.TryParse(matches[0].Value, out int i))
+                matches_values = matches_values.Skip(1).ToList();
+            
+            var quantidade = Convert.ToInt32(matches_values[0]);
+            var preco = Convert.ToDecimal(matches_values[1]);
+            var valor = Convert.ToDecimal(matches_values[2]);
+            
             _minha_nota.NegociosRealizados.Add(
                 new Models.NegociosRealizadosModel()
                 {

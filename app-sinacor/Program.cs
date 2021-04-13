@@ -8,7 +8,7 @@ namespace app_sinacor
     class Program
     {
         private static readonly string _notasFolder
-            = @"D:\Google Drive\Documentos\IRPF\2021\Clear Corretora\Notas de Negociação";
+            = @"C:\Users\Marquinho\Downloads\Notas de Negociação";
 
         private static List<Models.NotaNegociacaoModel> _minhas_notas = new List<Models.NotaNegociacaoModel>();
 
@@ -16,7 +16,7 @@ namespace app_sinacor
         {
             GetStringsFromFiles();
             GetValuesFromNota();
-            //PrintAll();
+            PrintAll();
             PrintIRPFSwingTrade();
         }
 
@@ -25,9 +25,11 @@ namespace app_sinacor
             foreach (var nota in _minhas_notas)
             {
                 var v0 = nota.Pregao.ToShortDateString();
-                var v1 = nota.ResumoDosNegocios.Vendas_a_Vista.ToString("N2");
+                var v1 = nota.ResumoDosNegocios.Vendas_a_Vista.ToString("N2").PadLeft(9, '.');
                 var v2 = nota.ResumoFinanceiro.IRRF.ToString("N2");
-                Console.WriteLine($"{v0} | IRRF {v2} | Venda {v1}");
+                var v3 = nota.ResumoDosNegocios.Compras_a_Vista.ToString("N2").PadLeft(9, '.');
+
+                Console.WriteLine($"{v0} | IRRF {v2} | Venda {v1} | Compra {v3} |");
             }
         }
 
@@ -45,9 +47,9 @@ namespace app_sinacor
             foreach (var item in groupsByPregao)
             {
                 var v0 = item.Mes;
-                var v1 = item.Vendas_a_Vista.ToString("N2");
+                var v1 = item.Vendas_a_Vista.ToString("N2").PadLeft(9, '.');
                 var v2 = item.IRRF.ToString("N2");
-                Console.WriteLine($"Mes {v0} | IRRF {v2} | Venda {v1}");
+                Console.WriteLine($"Mes {v0} | IRRF {v2} | Venda {v1} |");
             }
         }
 
